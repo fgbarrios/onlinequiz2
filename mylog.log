@@ -1,0 +1,7 @@
+nohup: ignoring input
+WebSocket server started on port 8091
+
+log_date : 2024-06-18 14:28:45 {"action":"error","client_id":4841,"message":"Unable to write to stream: fwrite(): SSL operation failed with code 1. OpenSSL Error messages:\nerror:140D00CF:SSL routines:SSL_write:protocol is shutdown"}
+log_date : 2024-06-24 14:14:34 {"action":"error","client_id":6323,"message":"Unable to write to stream: fwrite(): SSL: Broken pipe"}
+log_date : 2024-06-24 14:14:39 {"action":"error","client_id":7428,"message":"Unable to write to stream: fwrite(): SSL: Broken pipe"}
+log_date : 2024-08-05 20:30:07 {"action":"error","client_id":13769,"message":"Unable to write to stream: fwrite(): SSL operation failed with code 1. OpenSSL Error messages:\nerror:140D00CF:SSL routines:SSL_write:protocol is shutdown"}
