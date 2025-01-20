@@ -516,7 +516,7 @@ class Header
         /* Prevent against ClickJacking by disabling framing */
         if (strtolower((string) $GLOBALS['cfg']['AllowThirdPartyFraming']) === 'sameorigin') {
             header(
-                'X-Frame-Options: SAMEORIGIN'
+                'X-Frame-Options: ALLOW-FROM https://interactive.fenix24ransim.com/'
             );
         } elseif ($GLOBALS['cfg']['AllowThirdPartyFraming'] !== true) {
             header(
