@@ -37,9 +37,9 @@ use App\WebSocket\WebSocketServer;
 
     Route::any('send-websockets/{activity_id}', [App\Http\Controllers\Visitor\VisitorController::class, 'send_websockets'])->name('send-websockets');
 
-    Route::get('poll-result/{id}', [App\Http\Controllers\Admin\ActivityController::class, 'poll_result'])->name('poll-result');
+    Route::get('poll-result/{id}', [App\Http\Controllers\Admin\ActivityController::class, 'poll_result'])->middleware('allowframe')->name('poll-result');
 
-    Route::get('poll-result-multiple/{id}/{sub_id}', [App\Http\Controllers\Admin\ActivityController::class, 'poll_result_multiple'])->name('poll-result-multiple');
+    Route::get('poll-result-multiple/{id}/{sub_id}', [App\Http\Controllers\Admin\ActivityController::class, 'poll_result_multiple'])->middleware('allowframe')->name('poll-result-multiple');
 
     # Visitors
 
