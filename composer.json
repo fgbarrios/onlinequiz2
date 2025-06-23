@@ -59,7 +59,7 @@
     },
     "extra": {
         "laravel": {
-            "dont-discover": [ "nunomaduro/collision" ]
+            "dont-discover": []
         }
     },
     "config": {
