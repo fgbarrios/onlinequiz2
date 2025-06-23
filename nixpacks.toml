@@ -1,2 +1,18 @@
-SOCKET_PORT=8090
-SOCKET_URL=wss://fenix24ransim.com/socket
+[phases.setup]
+nixpkgs = ["php81", "composer", "nodejs"]
+
+[phases.build]
+cmds = [
+  "composer install --no-dev --optimize-autoloader",
+  "php artisan config:cache",
+  "php artisan route:cache"
+]
+
+[start]
+cmds = [
+  # Start Laravel HTTP server on Kinsta's assigned $PORT
+  "php artisan serve --host=0.0.0.0 --port=$PORT",
+
+  # Start Laravel WebSocket server on port 6001 (or your configured SOCKET_PORT)
+  "php artisan websockets:serve"
+]
