@@ -1381,6 +1381,7 @@ class ActivityController extends Controller
                 $code           = $userData[0]->phone_code;
                 $username       = $userData[0]->username;
 
+                $phone_number = '';
                 $general_data = GeneralSettings::all();
                 if(count($general_data)>0)
                 {
@@ -1412,6 +1413,7 @@ class ActivityController extends Controller
                 $code           = $userData[0]->phone_code;
                 $username       = $userData[0]->username;
 
+                $phone_number = '';
                 $general_data = GeneralSettings::all();
                 if(count($general_data)>0)
                 {
@@ -1552,7 +1554,7 @@ class ActivityController extends Controller
                     $message[]          = "Based On Your Decisions, You Added:  (".$value['total_score'].") days resulting in $(".$value['total_amount'].") millions of additional business interruption costs.";
                     $message[]          = $value['data'];
                     $message[]          = "";
-                    $message[]          = "If you’d like to learn more about how to lower Business Interruption costs or Fenix24, reach out to us at:  ransim@fenix24.com";
+                    $message[]          = "If you'd like to learn more about how to lower Business Interruption costs or Fenix24, reach out to us at:  ransim@fenix24.com";
 
 
                     $smsmessage            = array();
@@ -1561,7 +1563,7 @@ class ActivityController extends Controller
                     $smsmessage[]          = "Based On Your Decisions, You Added:  (".$value['total_score'].") days resulting in $(".$value['total_amount'].") millions of additional business interruption costs.";
                     $smsmessage[]          = $value['sms_data'];
                     $smsmessage[]          = "";
-                    $smsmessage[]          = "If you’d like to learn more about how to lower Business Interruption costs or Fenix24, reach out to us at:  ransim@fenix24.com";
+                    $smsmessage[]          = "If you'd like to learn more about how to lower Business Interruption costs or Fenix24, reach out to us at:  ransim@fenix24.com";
 
                     if($email !="")
                     {

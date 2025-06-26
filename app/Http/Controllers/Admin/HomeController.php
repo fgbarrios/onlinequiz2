@@ -27,11 +27,11 @@ class HomeController extends Controller
     # Dashboard or login page
     public function index(Request $request)
     {
-        if(!Auth::user())
+        if(!auth()->check())
         {
             return redirect('login');
         }
-        $remember_token = Auth::user()->remember_token;
+        $remember_token = auth()->user()->remember_token;
         $AdminLogs = AdminLogs::where('admin_id',Auth::user()->id)->orderBy('id','desc')->get();
         $old_token = "";
         if(count($AdminLogs)>0)
@@ -40,13 +40,13 @@ class HomeController extends Controller
         }
         if($old_token != $remember_token)
         {
-            $Insertdata = array(
-                "admin_id"      => Auth::user()->id,
+            $Insertdata = [
+                "admin_id"      => auth()->user()->id,
                 "browser_agent" => $request->header('user-agent'),
                 "remember_token" => $remember_token,
                 "ip_address"    => $request->ip(),
-                "logged_at"     => date('Y-m-d H:i:s'),
-            );
+                "logged_at"     => now(),
+            ];
             AdminLogs::create($Insertdata);
         }
         return redirect('dashboard');
@@ -113,7 +113,7 @@ class HomeController extends Controller
             $mailContent = array(
                 "email"         => $email,
                 "message"       => $message,
-                "visit_url"     => Auth::user()->polling_url,
+                "visit_url"     => auth()->user()->polling_url,
             );
 
             $mailData = [
@@ -124,9 +124,9 @@ class HomeController extends Controller
             // return view('admin.email.invite_visitors',compact('mailData'));
             try {
 
-                Mail::to($email)->send(new CustomSendMail($mailData));
+                \Illuminate\Support\Facades\Mail::to($email)->send(new \App\Mail\CustomSendMail($mailData));
 
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
 
                 return redirect()->back()->withErrors($e->getMessage());
             }
@@ -177,18 +177,15 @@ class HomeController extends Controller
             "time_zone"     => $request->time_zone,
         );
         
-        if($request->password !="")
-        {
-            $password = Hash::make($request->password);
-            $update_data['password'] = $password;
+        if ($request->filled('password')) {
+            $update_data['password'] = \Illuminate\Support\Facades\Hash::make($request->password);
         }
 
-        $result = User::where('id',Auth::user()->id)->update($update_data);
-        $timeData = TimeZones::where('id',$request->time_zone)->first();
-        if(isset($timeData->zone_text))
-        {
-            Cache::forever('APP_TIMEZONE',$timeData->zone_text);
-            date_default_timezone_set(Cache::get('APP_TIMEZONE'));
+        $result = \App\Models\User::where('id', \Illuminate\Support\Facades\Auth::id())->update($update_data);
+        $timeData = TimeZones::where('id', $request->time_zone)->first();
+        if (isset($timeData->zone_text)) {
+            \Illuminate\Support\Facades\Cache::forever('APP_TIMEZONE', $timeData->zone_text);
+            date_default_timezone_set(\Illuminate\Support\Facades\Cache::get('APP_TIMEZONE'));
         }
         return redirect()->back()->with('success', trans('admin.profile_update'));
     }
@@ -212,13 +209,11 @@ class HomeController extends Controller
     }
 
     # Visti page
-    public function visit($username="")
+    public function visit($username = "")
     {
-        if(Session::get('unique_name'))
-        {
+        if (\Illuminate\Support\Facades\Session::get('unique_name')) {
             return redirect()->route('vote-page');
-        }
-        else
+        } else
         {
             $userdata   = User::where('username',$username)->get();
             $name       = "";
@@ -248,11 +243,10 @@ class HomeController extends Controller
             return redirect('/');
         }
 
-        if(!Session::get('unique_name'))
+        if(!\Illuminate\Support\Facades\Session::get('unique_name'))
         {
             $unique_name = $this->get_guest_name();
-            Session::put('unique_name',$unique_name);
-            
+            \Illuminate\Support\Facades\Session::put('unique_name', $unique_name);
             $save_data = array(
             
                 "unique_name"       => $unique_name,
@@ -262,10 +256,10 @@ class HomeController extends Controller
             Visitors::create($save_data);
         }
 
-        $name           = Session::get('unique_name');
-        $activity_data  = Activity::where('status','1')->orderBy('sort_order','asc')->get();
-        
-        if(count($activity_data)>0)
+        $name = \Illuminate\Support\Facades\Session::get('unique_name');
+        $activity_data = Activity::where('status', '1')->orderBy('sort_order', 'asc')->get();
+
+        if ($activity_data->count() > 0)
         {
             $activity_data  = $activity_data[0];
             $option_data    = ActivityOption::where('activity_id',$activity_data->id)->orderBy('sort_order','asc')->get();
@@ -280,8 +274,7 @@ class HomeController extends Controller
     # Save visitors details
     public function save_visitors_details(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-
+        $validator = \Illuminate\Support\Facades\Validator::make($request->all(), [
             'name'          => 'required|string',
             // 'email'         => 'email',
             // 'phone_number'  => 'regex:/^([0-9\s\-\+\(\)]*)$/|min:10'
@@ -303,7 +296,7 @@ class HomeController extends Controller
 
         );
         Visitors::create($save_data);
-        Session::put('unique_name',$unique_name);
+        \Illuminate\Support\Facades\Session::put('unique_name', $unique_name);
         return redirect()->route('vote-page');
     }
 
@@ -322,7 +315,7 @@ class HomeController extends Controller
     # Change new password
     public function change_new_password(Request $request)
     {
-        $validator = Validator::make($request->all(), [
+        $validator = \Illuminate\Support\Facades\Validator::make($request->all(), [
             'old_password'          => 'required|string',
             'new_password'          => 'required|string',
             'confirm_password'      => 'required|same:new_password',
@@ -331,11 +324,13 @@ class HomeController extends Controller
         {
             return redirect()->back()->withErrors($validator->errors());
         }
-        if(!Hash::check($request->old_password,Auth::user()->password))
-        {
-            return redirect()->back()->withErrors(array(trans('admin.old_password_not_matched')));
+
+        if (!\Illuminate\Support\Facades\Hash::check($request->old_password, \Illuminate\Support\Facades\Auth::user()->password)) {
+            return redirect()->back()->withErrors([trans('admin.old_password_not_matched')]);
         }
-        User::where('id',Auth::user()->id)->update(array("password" => Hash::make($request->new_password)));
+
+        \App\Models\User::where('id', \Illuminate\Support\Facades\Auth::user()->id)
+            ->update(['password' => \Illuminate\Support\Facades\Hash::make($request->new_password)]);
         return redirect()->back()->with('success',trans('admin.password_changed'));
     }
 

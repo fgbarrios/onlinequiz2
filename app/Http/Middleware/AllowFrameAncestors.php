@@ -17,7 +17,7 @@ class AllowFrameAncestors
         // Set the CSP header to allow your WordPress subdomain
         $response->headers->set(
             'Content-Security-Policy',
-            "frame-ancestors 'self' https://interactive.fenix24ransim.com"
+            "frame-ancestors 'self' https://interactive.fenix24ransim.com http://127.0.0.1:8000 http://127.0.0.1:8080"
         );
 
         // Remove the X-Frame-Options header if it exists

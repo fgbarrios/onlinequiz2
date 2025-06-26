@@ -7,7 +7,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 use App\Models\User;
 use App\Models\GeneralSettings;
-use Cache;
+use Illuminate\Support\Facades\Cache;
 
 
 class Controller extends BaseController
@@ -18,12 +18,12 @@ class Controller extends BaseController
     {
         if(!Cache::has('APP_TIMEZONE'))
         {
-            $userdata = User::select('time_zone.zone_text as zone_text')->join('time_zone','users.time_zone','=','time_zone.id')->first();
-            if(isset($userdata->zone_text))
+            $userdata = User::select('time_zone.zone_value as zone_value')->join('time_zone','users.time_zone_id','=','time_zone.id')->first();
+            if(isset($userdata->zone_value))
             {
-                if($userdata->zone_text!="")
+                if($userdata->zone_value!="")
                 {
-                    Cache::forever('APP_TIMEZONE',$userdata->zone_text);
+                    Cache::forever('APP_TIMEZONE',$userdata->zone_value);
                 }
                 else
                 {
