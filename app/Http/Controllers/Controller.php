@@ -18,7 +18,7 @@ class Controller extends BaseController
     {
         if(!Cache::has('APP_TIMEZONE'))
         {
-            $userdata = User::select('time_zone.zone_value as zone_value')->join('time_zone','users.time_zone_id','=','time_zone.id')->first();
+            $userdata = User::select('time_zone.zone_value as zone_value')->join('time_zone','users.time_zone','=','time_zone.id')->first();
             if(isset($userdata->zone_value))
             {
                 if($userdata->zone_value!="")
