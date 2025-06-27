@@ -23,20 +23,18 @@
     19 => 'Illuminate\\Translation\\TranslationServiceProvider',
     20 => 'Illuminate\\Validation\\ValidationServiceProvider',
     21 => 'Illuminate\\View\\ViewServiceProvider',
-    22 => 'Laravel\\Sail\\SailServiceProvider',
-    23 => 'Laravel\\Sanctum\\SanctumServiceProvider',
-    24 => 'Laravel\\Tinker\\TinkerServiceProvider',
-    25 => 'Laravel\\Ui\\UiServiceProvider',
-    26 => 'Maatwebsite\\Excel\\ExcelServiceProvider',
-    27 => 'Carbon\\Laravel\\ServiceProvider',
-    28 => 'Termwind\\Laravel\\TermwindServiceProvider',
-    29 => 'SimpleSoftwareIO\\QrCode\\QrCodeServiceProvider',
-    30 => 'Spatie\\LaravelIgnition\\IgnitionServiceProvider',
-    31 => 'App\\Providers\\AppServiceProvider',
-    32 => 'App\\Providers\\AuthServiceProvider',
-    33 => 'App\\Providers\\EventServiceProvider',
-    34 => 'App\\Providers\\RouteServiceProvider',
-    35 => 'SimpleSoftwareIO\\QrCode\\QrCodeServiceProvider',
+    22 => 'Laravel\\Sanctum\\SanctumServiceProvider',
+    23 => 'Laravel\\Tinker\\TinkerServiceProvider',
+    24 => 'Laravel\\Ui\\UiServiceProvider',
+    25 => 'Maatwebsite\\Excel\\ExcelServiceProvider',
+    26 => 'Carbon\\Laravel\\ServiceProvider',
+    27 => 'Termwind\\Laravel\\TermwindServiceProvider',
+    28 => 'SimpleSoftwareIO\\QrCode\\QrCodeServiceProvider',
+    29 => 'App\\Providers\\AppServiceProvider',
+    30 => 'App\\Providers\\AuthServiceProvider',
+    31 => 'App\\Providers\\EventServiceProvider',
+    32 => 'App\\Providers\\RouteServiceProvider',
+    33 => 'SimpleSoftwareIO\\QrCode\\QrCodeServiceProvider',
   ),
   'eager' => 
   array (
@@ -56,12 +54,11 @@
     13 => 'Carbon\\Laravel\\ServiceProvider',
     14 => 'Termwind\\Laravel\\TermwindServiceProvider',
     15 => 'SimpleSoftwareIO\\QrCode\\QrCodeServiceProvider',
-    16 => 'Spatie\\LaravelIgnition\\IgnitionServiceProvider',
-    17 => 'App\\Providers\\AppServiceProvider',
-    18 => 'App\\Providers\\AuthServiceProvider',
-    19 => 'App\\Providers\\EventServiceProvider',
-    20 => 'App\\Providers\\RouteServiceProvider',
-    21 => 'SimpleSoftwareIO\\QrCode\\QrCodeServiceProvider',
+    16 => 'App\\Providers\\AppServiceProvider',
+    17 => 'App\\Providers\\AuthServiceProvider',
+    18 => 'App\\Providers\\EventServiceProvider',
+    19 => 'App\\Providers\\RouteServiceProvider',
+    20 => 'SimpleSoftwareIO\\QrCode\\QrCodeServiceProvider',
   ),
   'deferred' => 
   array (
@@ -204,8 +201,6 @@
     'validator' => 'Illuminate\\Validation\\ValidationServiceProvider',
     'validation.presence' => 'Illuminate\\Validation\\ValidationServiceProvider',
     'Illuminate\\Contracts\\Validation\\UncompromisedVerifier' => 'Illuminate\\Validation\\ValidationServiceProvider',
-    'Laravel\\Sail\\Console\\InstallCommand' => 'Laravel\\Sail\\SailServiceProvider',
-    'Laravel\\Sail\\Console\\PublishCommand' => 'Laravel\\Sail\\SailServiceProvider',
     'command.tinker' => 'Laravel\\Tinker\\TinkerServiceProvider',
   ),
   'when' => 
@@ -244,9 +239,6 @@
     array (
     ),
     'Illuminate\\Validation\\ValidationServiceProvider' => 
-    array (
-    ),
-    'Laravel\\Sail\\SailServiceProvider' => 
     array (
     ),
     'Laravel\\Tinker\\TinkerServiceProvider' => 
