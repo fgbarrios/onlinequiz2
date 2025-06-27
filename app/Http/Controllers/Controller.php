@@ -31,7 +31,12 @@ class Controller extends BaseController
                 }
             }
         }
-        date_default_timezone_set(Cache::get('APP_TIMEZONE'));
+        $timezone = Cache::get('APP_TIMEZONE');
+        if (in_array($timezone, timezone_identifiers_list())) {
+            date_default_timezone_set($timezone);
+        } else {
+            date_default_timezone_set('UTC');
+        }
 
         if(!Cache::has('MAIL_MAILER'))
         {
